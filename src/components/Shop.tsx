@@ -3,16 +3,21 @@ import { createClient } from '@/utils/supabase/server';
 import { MOCK_PRODUCTS } from '@/data/products';
 
 export default async function Shop() {
-    const supabase = await createClient();
+    let displayProducts = MOCK_PRODUCTS;
 
-    // Try fetching products from Supabase
-    const { data: products, error } = await supabase
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: true });
+    try {
+        const supabase = await createClient();
+        const { data: products, error } = await supabase
+            .from('products')
+            .select('*')
+            .order('created_at', { ascending: true });
 
-    // Fallback to mock data if there's no DB connection or no products yet
-    const displayProducts = products && products.length > 0 ? products : MOCK_PRODUCTS;
+        if (products && products.length > 0) {
+            displayProducts = products;
+        }
+    } catch (error) {
+        console.warn('Supabase not connected or missing env vars, falling back to mock data.');
+    }
 
     return (
         <section id="shop" className="py-24 bg-background">
@@ -23,7 +28,6 @@ export default async function Shop() {
                         Our meticulously crafted seasoning blends. Not fusion, but a celebration of parallel origins.
                     </p>
                 </div>
-
                 <ShopClient products={displayProducts} />
             </div>
         </section>
