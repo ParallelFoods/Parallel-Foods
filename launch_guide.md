@@ -1,31 +1,8 @@
 # 🚀 Parallel Foods Launch Guide
 
-Follow these steps to push your local code to GitHub and deploy it to Vercel.
+The code has been successfully connected and pushed to your repository at `https://github.com/ParallelFoods/Parallel-Foods.git`.
 
-## 1. Connect to GitHub
-
-I noticed you already have a repository at `https://github.com/ParallelFoods/Parallel-Foods`. Let's link your local code to it.
-
-Run these commands in your terminal:
-
-```bash
-# Initialize git if not already done
-git init
-
-# Add the existing remote
-git remote add origin https://github.com/ParallelFoods/Parallel-Foods.git
-
-# Add all files
-git add .
-
-# Create the initial commit
-git commit -m "feat: complete brand foundation and infrastructure"
-
-# Push to the main branch
-git push -u origin main
-```
-
-## 2. Deploy to Vercel
+## 1. Deploy to Vercel
 
 ### Option A: Vercel Dashboard (Recommended)
 1. Go to your [Vercel Dashboard](https://vercel.com/new).
@@ -45,7 +22,7 @@ vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY # enter the key from above
 vercel --prod
 ```
 
-## 3. Post-Deployment Checklist
+## 2. Post-Deployment Checklist
 - [ ] Verify the **Hero** section loads with the premium spice spread image.
 - [ ] Scroll down to the **Story** section and ensure the Korea/Mexico animations feel smooth.
 - [ ] Test the **Add to Cart** button to see the floating cart count update.
