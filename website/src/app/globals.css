@@ -5,25 +5,26 @@
   --color-accent: var(--accent);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-sans), sans-serif;
+  --font-serif: var(--font-serif), serif;
 }
 
 @layer base {
   :root {
-    --background: #faf6f0;
-    /* Warm off-white */
-    --foreground: #2d241c;
+    --background: #fdfaf6;
+    /* Soft, warm paper off-white */
+    --foreground: #4a3320;
     /* Deep earthy brown */
-    --primary: #9b4f23;
-    /* Rusty orange/brown */
-    --accent: #d97736;
-    /* Warm terracotta */
+    --primary: #a65a38;
+    /* Terracotta / Rust */
+    --accent: #d28c61;
+    /* Light warm tan */
   }
 
   .dark {
     --background: #1a1512;
     --foreground: #f4eee9;
-    --primary: #b8602b;
+    --primary: #c26a42;
     --accent: #e58b4b;
   }
 }
@@ -32,6 +33,16 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    @apply font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans;
   }
 }
 
