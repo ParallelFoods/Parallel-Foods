@@ -94,40 +94,38 @@ function GanttChart() {
                       </h3>
                       <p className="text-xs text-neutral-500 mt-1">{task.category}</p>
                     </div>
-                    <div className="relative py-3 px-0 flex items-center">
-                      <div className="flex w-full">
-                        {days.map((d, i) => {
-                          const dayIndex = i;
-                          const barStart = Math.max(0, startDiff);
-                          const barEnd = Math.min(days.length, startDiff + duration);
-                          const isInBar = isVisible && dayIndex >= barStart && dayIndex < barEnd;
-                          const isBarStart = isVisible && dayIndex === Math.floor(barStart);
-                          const isBarEnd = isVisible && dayIndex === Math.floor(barEnd - 1);
+                    <div className="relative py-3 px-0 flex items-center overflow-hidden">
+                      {/* Grid Background */}
+                      <div className="absolute inset-0 flex pointer-events-none">
+                        {days.map((d) => (
+                          <div key={d.toISOString()} className="flex-1 min-w-[50px] border-r border-neutral-800/10" />
+                        ))}
+                      </div>
 
-                          return (
-                            <div key={d.toISOString()} className="flex-1 min-w-[50px] border-r border-neutral-800/10 h-12 relative flex items-center">
-                              {isInBar && (
-                                <div
-                                  className={cn(
-                                    "absolute inset-y-2 left-0 right-0 flex items-center z-10 backdrop-blur-sm",
-                                    CATEGORY_COLORS[task.category],
-                                    isBarStart && "rounded-l-lg left-1",
-                                    isBarEnd && "rounded-r-lg right-1",
-                                    !isBarStart && "border-l-0",
-                                    !isBarEnd && "border-r-0",
-                                    (isBarStart || isBarEnd) && "border",
-                                    !isBarStart && !isBarEnd && "border-y",
-                                    "shadow-md cursor-pointer hover:brightness-110 transition-all duration-300"
-                                  )}
-                                >
-                                  {isBarStart && (
-                                    <span className="text-xs font-semibold truncate mix-blend-plus-lighter opacity-90 px-3">{task.taskname}</span>
-                                  )}
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
+                      {/* Unified Task Bar */}
+                      {isVisible && (
+                        <div
+                          className={cn(
+                            "absolute inset-y-2 rounded-lg shadow-md flex items-center px-3 z-10 transition-all duration-300 hover:brightness-110 cursor-pointer backdrop-blur-sm border",
+                            CATEGORY_COLORS[task.category]
+                          )}
+                          style={{
+                            left: `${(Math.max(0, startDiff) / days.length) * 100}%`,
+                            marginLeft: '4px',
+                            width: `calc(${(Math.min(days.length - Math.max(0, startDiff), duration + Math.min(0, startDiff)) / days.length) * 100}% - 8px)`
+                          }}
+                        >
+                          <span className="text-sm font-semibold truncate mix-blend-plus-lighter opacity-90">
+                            {task.taskname}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Spacer to ensure the container expands to the same width as the header */}
+                      <div className="flex w-full invisible pointer-events-none">
+                        {days.map((d) => (
+                          <div key={d.toISOString()} className="flex-1 min-w-[50px] h-12" />
+                        ))}
                       </div>
                     </div>
                   </div>
